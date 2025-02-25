@@ -3,13 +3,13 @@ import TodoItem from './TodoItem'
 
 
 
-function TodosList( {todos} ) {
+function TodosList( {todos, padding, setTodos} ) {
 
   return (
     <>
       {
     todos.map((item, index) => (
-      <TodoItem key={index} todo={item} />
+      <TodoItem padding={padding} key={index} todo={item} todos={todos} setTodos={setTodos} />
     ))
     }
     </>

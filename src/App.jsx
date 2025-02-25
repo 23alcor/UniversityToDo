@@ -13,13 +13,39 @@ function App() {
     MATH: 'Math'
   }
 
-  const [todos, setTodos] = useState(['ralph'])
+  const [todos, setTodos] = useState([{task: 'Ralph', course: 'Electrical', id: Date.now()}])
+  const [inputText, setInputText] = useState("")
+  const [courseChoice, setCourseChoice] = useState("")
+  const [selectedCourse, setSelectedCourse] = useState('Course')
+
+  const handleChange = (event) => {
+    setSelectedCourse(event.target.value)
+  }
+
+  const addTodo = () => {
+    if (inputText.trim() !== "") {
+      const newItem = {
+        task: inputText,
+        course: selectedCourse,
+        id: Date.now()
+      }
+      setTodos([...todos, newItem])
+      setInputText("")
+      setSelectedCourse('')
+    }
+  }
+
+  const deleteTodo = () => {
+
+  }
 
 
   return (
-    <div className="inline-flex w-full items-center max-w-7xl mx-auto shadow-md rounded-lg px-4 py-2 my-30 bg-gray-800 text-orange-500">
-      <TodoBox todos={todos} setTodos={setTodos}/>
-      <CourseBox todos={todos} courses={COURSES}/>
+    <div className='flex justify-center'>
+      <div className="inline-flex w-full items-center max-w-7xl shadow-md rounded-lg px-4 py-2 my-30 bg-gray-800 text-orange-500">
+        <TodoBox todos={todos} setTodos={setTodos}/>
+        <CourseBox selectedCourse={selectedCourse} handleChange={handleChange} courseChoice={courseChoice} setCourseChoice={setCourseChoice} setInputText={setInputText} inputText={inputText} addTodo={addTodo} todos={todos} setTodos={setTodos} courses={COURSES}/>
+      </div>
     </div>
   )
 }

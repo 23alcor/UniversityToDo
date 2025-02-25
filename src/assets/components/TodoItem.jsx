@@ -1,11 +1,97 @@
-import React from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 
-function TodoItem( {todo, index} ) {
+function TodoItem( {todo, index, padding, todos, setTodos} ) {
+
+  const [checked, setChecked] = useState(false)
+  const [optionsVisibility, setOptionsVisibility] = useState(false)
+  const [editTask, setEditTask] = useState(false)
+  const [taskTitle, setTaskTitle] = useState(todo.task)
+
+  const inputRef = useRef(null)
+ 
+  const clicked = () => {
+    setChecked(checked => !checked)
+  }
+
+  const optionsClicked = () => {
+    setOptionsVisibility((prev) => !prev)
+  }
+
+  const deleteTodo = (id) => {
+    const filteredTodos = todos.filter((focus) => {
+      return focus.id !== id
+    })
+    setTodos(filteredTodos)
+  }
+
+  useEffect(() => {
+    inputRef.current?.focus()
+  }, [editTask])
+
   return (
-    <div key={index} className='bg-gray-500 inline-flex justify-between'>
-      {todo}
-      <input type="radio" name="" id="" />
+    <div key={index} className={`bg-gray-500 group inline-flex justify-between mx-2 my-1 p-${padding} rounded-2xl`}>
+      <div className='inline-flex items-center mx-2'>
+        <div className='inline-flex justify-between w-full'>
+          <input 
+          type="checkbox" 
+          checked={checked} 
+          onChange={clicked}
+          />
+          <div className='mx-2'>
+            {!editTask ? todo.task : 
+              <input 
+                ref={inputRef}
+                type="text"
+                value={taskTitle}
+                onChange={(e) => {
+                  todos.filter((todo) => {
+                    return 
+                  })
+                  setTaskTitle(e.value)
+                }}
+              />
+            }
+          </div>
+        
+          {!editTask ? '' :
+          <button
+          onClick={() => {
+            setEditTask(prev => !prev)
+            setOptionsVisibility(false)
+          }}
+          className='hover:cursor-pointer hover:bg-gray-600'>
+            DONE
+          </button>
+          }
+          {!optionsVisibility ? '' : 
+            <div className='inline-flex gap-2 ml-2'>
+              <button 
+              onClick={() => {deleteTodo(todo.id)}}
+              className='hover:cursor-pointer hover:bg-gray-600 rounded-2xl'>Delete</button>
+              <button 
+              onClick={() => {
+                setEditTask(true)
+                inputRef.current?.focus()
+              
+              }}
+              className='hover:cursor-pointer hover:bg-gray-600 rounded-2xl'>
+                Edit
+              </button>
+            </div>
+          }
+        </div>
       </div>
+      <div>
+        
+        <button 
+        onClick={optionsClicked}
+        className='mx-2 text-2xl opacity-0 transition-opacity group-hover:opacity-100 hover:cursor-pointer'>
+          ⋯
+        </button>
+      </div> 
+
+
+    </div>
   )
 }
 

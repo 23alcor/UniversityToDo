@@ -1,29 +1,14 @@
 import React, { useState } from 'react'
 import TodosList from './TodosList'
 
-function TodoBox( {todos, setTodos} ) {
+function TodoBox( {todos, setTodos, selectedCourse} ) {
 
-  const [inputText, setInputText] = useState("")
 
-  const addTodo = () => {
-    if (inputText.trim() !== "") {
-      setTodos([...todos, inputText])
-      setInputText("")
-    }
-  }
 
   return (
-    <div className="text-white h-150 bg-red-700 flex flex-col w-full max-w-md mx-auto shadow-md rounded-lg px-4 py-0 my-0">
-      <p className='h-10 bg-blue-700'>Coming Up</p>
-      <TodosList todos={todos}/>
-
-      <input 
-      className='border' 
-      type="text" 
-      value={inputText}
-      onChange={(e) => setInputText(e.target.value)}
-      />
-      <button onClick={addTodo} className='border'>Add Todo</button>
+    <div className="text-white h-150 bg-gray-700 flex flex-col w-full max-w-md mx-auto shadow-md rounded-lg px-4 py-0 my-0">
+      <h2 className='h-10 bg-gray-700 m-2 text-3xl'>Coming Up</h2>
+      <TodosList padding={2} setTodos={setTodos} todos={todos}/>
     </div>
   )
 }
