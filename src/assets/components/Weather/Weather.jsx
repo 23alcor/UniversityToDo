@@ -16,6 +16,10 @@ function Weather() {
   const api_key = 'a284769519eb81aa5a7b465300f050fd'
 
   const [Weather, setWeather] = useState(null)
+  const [City, setCity] = useState("New York")
+  const [CitySuggestions, setCitySuggestions] = useState([])
+  const [showSearch, setShowSearch] = useState(false)
+  const [inputValue, SetInputValue] = useState('')
 
   const allIcons = {
     "01d": clear_icon,
@@ -40,7 +44,6 @@ function Weather() {
     try {
       const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api_key}`)
       const data = await response.json()
-      console.log(data)
       const icon = allIcons[data.weather[0].icon || clear_icon]
 
       const now = Math.floor(Date.now() / 1000)
@@ -61,15 +64,15 @@ function Weather() {
 
       }
 
+      const rainAmount = data.rain ? data.rain["1h"] || 0 : 0
+
       setWeather({
         temp: (data.main.temp ? data.main.temp : '0%'),
         speed: (data.wind.speed ? data.wind.speed * 2.237 : '0%'),
-        rain : (data.rain ? data.rain : '0%'),
+        rain : rainAmount,
         sun : (sun ? sun : '0%'),
         icon: icon
       })
-
-      console.log("Hello")
 
     } catch (error) {
 
@@ -78,10 +81,41 @@ function Weather() {
 
   }
 
+  const fetchCitySuggestions = async (query) => {
+    if (query.length < 3) return // Only fetch suggestions when 3 or more characters are typed
+    try {
+      const response = await fetch(`https://api.openweathermap.org/data/2.5/find?q=${query}&appid=${api_key}`)
+      const data = await response.json()
+      setCitySuggestions(data.list || [])
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const handleCityChange = (event) => {
+    const value = event.target.value
+    SetInputValue(value)
+    fetchCitySuggestions(value) // Fetch city suggestions as the user types
+  }
+
+  const handleCitySelect = (selectedCity) => {
+    setCity(selectedCity.name)
+    SetInputValue('')
+    setShowSearch(prev => !prev)
+    search(selectedCity.name) // Search the weather data for the selected city
+    setCitySuggestions([]) // Clear suggestions after selecting a city
+  }
+
+  useEffect(() => {
+    search(City) // Call search with the initial city
+  }, [City]) // Re-run when the city changes
+
   useEffect(() => {
     search('New York')
 
   }, [])
+
+
 
   return (
     <div className="text-white h-150 bg-gray-700 flex flex-col justify-between w-full mx-2 shadow-md rounded-lg px-4 py-0 my-0">
@@ -115,8 +149,37 @@ function Weather() {
           </div>
         </div>
         {/* City Box */}
-        <div className='flex h-10 m-2 bg-red-700 justify-center items-center'>
-          City
+        <div className='bg-gray-500 rounded-2xl flex justify-center mt-1'>
+          <div className='flex-col'>
+            <div className='flex'>
+              <div className='my-2 p-1 px-2 w-60'>{City}</div>
+              <button className='hover:cursor-pointer' onClick={() => {setShowSearch(prev => !prev)}}>
+              {!showSearch ? '▼' : '▲'}
+              </button>
+            </div>
+            {showSearch ? <div className='bg-gray-600 w-60 p-1 px-2 my-1 rounded-xl'>
+            <input type="text" value={inputValue} placeholder='Search City' name="" id="" onChange={handleCityChange}/>
+
+            {CitySuggestions.length > 0 && (
+            <ul>
+              {CitySuggestions.map((suggestion) => {
+                return (
+                <li 
+                key={suggestion.id}
+                className='hover:cursor-pointer hover:bg-gray-500 px-2 rounded-xl'
+                onClick={() => {
+                  handleCitySelect(suggestion)
+
+                }}
+                >
+                  {suggestion.name}, {suggestion.sys.country}
+                </li>
+                )
+              })}
+            </ul>
+            )}
+            </div> : <div></div>}
+          </div>
         </div>
       </div>
     </div>

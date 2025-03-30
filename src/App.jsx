@@ -1,10 +1,31 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import TodoBox from './assets/components/TodoBox'
 import CourseBox from './assets/components/CourseBox'
 import Weather from './assets/components/Weather/Weather'
 
 function App() {
+
+  let todoItems
+
+
+
+  // This section is for local storage of Todos
+  // Get localStorage todos / No bracket so that it runs once when page reloads
+
+  const [todos, setTodos] = useState(() => {
+    const savedTodos = JSON.parse(localStorage.getItem('TODO_ITEMS')) 
+    return savedTodos || [{ task: 'First Task! Click Check Box to Complete and Add Your Own!', course: '', id: Date.now() }]
+  })
+  const [inputText, setInputText] = useState("")
+  const [courseChoice, setCourseChoice] = useState("")
+  const [selectedCourse, setSelectedCourse] = useState('Course')
+
+  // Store in localStorage
+  useEffect(() => {
+    window.localStorage.setItem('TODO_ITEMS', JSON.stringify(todos))
+  }, [todos])
+
 
   const COURSES = {
     ELECTRICAL: 'Electrical',
@@ -13,11 +34,6 @@ function App() {
     LATINO_LITERATURE: 'Latino Literature',
     MATH: 'Math'
   }
-
-  const [todos, setTodos] = useState([{task: 'Ralph', course: 'Electrical', id: Date.now()}])
-  const [inputText, setInputText] = useState("")
-  const [courseChoice, setCourseChoice] = useState("")
-  const [selectedCourse, setSelectedCourse] = useState('Course')
 
   const handleChange = (event) => {
     setSelectedCourse(event.target.value)
