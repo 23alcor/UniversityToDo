@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 
-function TodoItem( {todo, index, padding, todos, setTodos} ) {
+function TodoItem( {todo, index, padding, todos, setTodos , uncompleted_todos} ) {
 
   const [checked, setChecked] = useState(false)
   const [optionsVisibility, setOptionsVisibility] = useState(false)
@@ -11,6 +11,11 @@ function TodoItem( {todo, index, padding, todos, setTodos} ) {
  
   const clicked = () => {
     setChecked(checked => !checked)
+    setTodos((prevTodos) => 
+      prevTodos.map((t) =>
+        t.id === todo.id ? {...t, completed: !t.completed } : t
+      )
+    )
   }
 
   const optionsClicked = () => {

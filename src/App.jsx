@@ -15,7 +15,7 @@ function App() {
 
   const [todos, setTodos] = useState(() => {
     const savedTodos = JSON.parse(localStorage.getItem('TODO_ITEMS')) 
-    return savedTodos || [{ task: 'First Task! Click Check Box to Complete and Add Your Own!', course: '', id: Date.now() }]
+    return savedTodos || [{ task: 'First Task! Click Check Box to Complete and Add Your Own!', course: '', id: Date.now(), completed: false }]
   })
   const [inputText, setInputText] = useState("")
   const [courseChoice, setCourseChoice] = useState("")
@@ -44,7 +44,8 @@ function App() {
       const newItem = {
         task: inputText,
         course: selectedCourse,
-        id: Date.now()
+        id: Date.now(),
+        completed: false
       }
       setTodos([...todos, newItem])
       setInputText("")

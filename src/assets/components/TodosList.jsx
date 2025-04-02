@@ -3,13 +3,15 @@ import TodoItem from './TodoItem'
 
 
 
-function TodosList( {todos, padding, setTodos} ) {
+function TodosList( {todos, padding, setTodos, uncompleted_todos} ) {
+
+  
 
   return (
     <>
       {
-    todos.map((item, index) => (
-      <TodoItem padding={padding} key={index} todo={item} todos={todos} setTodos={setTodos} />
+    uncompleted_todos.map((item, index) => (
+      <TodoItem padding={padding} key={index} todo={item} uncompleted_todos={uncompleted_todos} todos={todos} setTodos={setTodos} />
     ))
     }
     </>
