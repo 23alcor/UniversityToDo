@@ -18,8 +18,10 @@ function TodoBox( {todos, setTodos, selectedCourse} ) {
   return (
     <div className="text-white h-150 bg-gray-700 flex flex-col w-full max-w-md mx-auto shadow-md rounded-lg px-4 py-0 my-0">
       <h2 className='h-10 bg-gray-700 m-2 text-3xl'>Coming Up</h2>
-      <div className='w-full h-full flex flex-col justify-between'>
-        <TodosList padding={2} setTodos={setTodos} uncompleted_todos={uncompleted_todos} todos={todos}/>
+      <div className='w-full h-full flex flex-col justify-between bg-gray-700'>
+        <div className='w-full flex-col flex'>
+          <TodosList padding={2} setTodos={setTodos} uncompleted_todos={uncompleted_todos} todos={todos}/>
+        </div>
         <div>
           {showRecents ? 
           <div className='w-full bg-gray-700 rounded-2xl h-45 my-2 p-2 border-8 border-gray-800 flex-col' >

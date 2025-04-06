@@ -17,7 +17,7 @@ function TodoItem( {todo, index, padding, todos, setTodos , uncompleted_todos} )
       )
     )
   }
-
+  
   const optionsClicked = () => {
     setOptionsVisibility((prev) => !prev)
   }
@@ -26,7 +26,7 @@ function TodoItem( {todo, index, padding, todos, setTodos , uncompleted_todos} )
     const filteredTodos = todos.filter((focus) => {
       return focus.id !== id
     })
-    setTodos(filteredTodos)
+    setTodos(filteredTodos) 
   }
 
   useEffect(() => {

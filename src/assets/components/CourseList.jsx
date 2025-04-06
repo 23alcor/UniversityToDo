@@ -1,14 +1,14 @@
 import React from 'react'
 import CourseItem from './CourseItem'
 
-function CourseList( {courses, selectedCourse, todos} ) {
+function CourseList( {todos, courses} ) {
   return (
     <>
       {Object.values(courses).map((item, index) => (
-        <CourseItem todos={todos} selectedCourse={selectedCourse} key={index} course={item} />
+        <CourseItem key={index} course={item} todos={todos}/>
       ))}
 
-    </>
+    </> 
   )
 }
 

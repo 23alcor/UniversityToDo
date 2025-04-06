@@ -16,10 +16,20 @@ function Weather() {
   const api_key = 'a284769519eb81aa5a7b465300f050fd'
 
   const [Weather, setWeather] = useState(null)
-  const [City, setCity] = useState("New York")
+  const [defaultCity, setDefaultCity] = useState(() => {
+    const savedCity = JSON.parse(localStorage.getItem('DEFAULT_CITY')) 
+    return savedCity || 'New York'
+  })
+  const [City, setCity] = useState(defaultCity)
   const [CitySuggestions, setCitySuggestions] = useState([])
   const [showSearch, setShowSearch] = useState(false)
   const [inputValue, SetInputValue] = useState('')
+
+  const setDefault = () => {
+    setDefaultCity(City)
+    window.localStorage.setItem('DEFAULT_CITY', JSON.stringify(City))
+  }
+
 
   const allIcons = {
     "01d": clear_icon,
@@ -56,7 +66,7 @@ function Weather() {
           sun = data.sys.sunrise
         }
         sun = new Date(sun * 1000).toLocaleTimeString("en-US", { 
-          timeZone: "EST",
+          timeZone: "America/New_York",
           hour: '2-digit',
           minute: '2-digit'
         })
@@ -152,12 +162,16 @@ function Weather() {
         <div className='bg-gray-500 rounded-2xl flex justify-center mt-1'>
           <div className='flex-col'>
             <div className='flex'>
-              <div className='my-2 p-1 px-2 w-60'>{City}</div>
+              <div className='my-2 p-0 px-2 w-60 flex justify-between'>{City} {(defaultCity !== City ? <button onClick={() => setDefault()} className='bg-gray-700 rounded-2xl w-20 text-xs hover:bg-gray-600 hover:cursor-pointer'>Set Default</button> : '')}</div>
               <button className='hover:cursor-pointer' onClick={() => {setShowSearch(prev => !prev)}}>
               {!showSearch ? '▼' : '▲'}
               </button>
             </div>
-            {showSearch ? <div className='bg-gray-600 w-60 p-1 px-2 my-1 rounded-xl'>
+            {showSearch ? 
+            <div className='pl-1 pt-0 flex'>
+              <div>Default: {defaultCity}</div>
+            </div> : <div></div>}
+            {showSearch ? <div className='bg-gray-600 w-60 p-1 px-2 my-1 rounded-xl flex-col'>
             <input type="text" value={inputValue} placeholder='Search City' name="" id="" onChange={handleCityChange}/>
 
             {CitySuggestions.length > 0 && (

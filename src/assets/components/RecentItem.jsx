@@ -20,6 +20,16 @@ function RecentItem( {todo, index, padding, todos, setTodos} ) {
         {taskTitle}
       </div>
       <div className='inline-flex mr-2 gap-2'>
+        <button
+        onClick={() => {setTodos((prevTodos) => 
+          prevTodos.map((t) =>
+            t.id === todo.id ? {...t, completed: !t.completed } : t
+          )
+        )}}
+        className='hover:cursor-pointer hover:bg-gray-600 rounded-2xl'
+        >
+          Restore
+        </button>
         <button 
         onClick={() => {deleteTodo(todo.id)}}
         className='hover:cursor-pointer hover:bg-gray-600 rounded-2xl'>Delete</button>
