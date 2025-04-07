@@ -13,7 +13,7 @@ function TodosList( {todos, padding, setTodos, uncompleted_todos} ) {
     uncompleted_todos.map((item, index) => (
       <TodoItem padding={padding} key={index} todo={item} uncompleted_todos={uncompleted_todos} todos={todos} setTodos={setTodos} />
     ))
-    }
+    } 
     </>
   )
 }

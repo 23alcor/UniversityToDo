@@ -37,12 +37,15 @@ function TodoItem( {todo, index, padding, todos, setTodos , uncompleted_todos} )
     <div key={index} className={`bg-gray-500 group inline-flex justify-between mx-2 my-1 p-${padding} rounded-2xl`}>
       <div className='inline-flex items-center mx-2'>
         <div className='inline-flex justify-between w-full'>
-          <input 
-          type="checkbox" 
-          checked={checked} 
-          onChange={clicked}
-          />
-          <div className='mx-2'>
+          <div className='flex justify-center items-center'>
+            <button 
+            onClick={clicked}
+            className='bg-gray-200 h-5 w-5 hover:bg-green-600 hover:cursor-pointer'
+            >
+
+            </button>
+          </div>
+          <div className='mx-2 w-full'>
             {!editTask ? todo.task : 
               <input 
                 ref={inputRef}

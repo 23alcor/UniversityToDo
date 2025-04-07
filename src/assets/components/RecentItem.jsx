@@ -15,7 +15,7 @@ function RecentItem( {todo, index, padding, todos, setTodos} ) {
   }
 
   return (
-    <div key={index} className={`bg-gray-500 group inline-flex justify-between w-full my-1 p-${padding} rounded-2xl`}>
+    <div key={todo.id} className={`bg-gray-500 group inline-flex justify-between w-full my-1 p-${padding} rounded-2xl`}>
       <div className='ml-2'>
         {taskTitle}
       </div>

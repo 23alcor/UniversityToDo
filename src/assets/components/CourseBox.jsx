@@ -31,7 +31,7 @@ function CourseBox( { selectedCourse, handleChange, inputText, setInputText, add
             className='border w-120 px-1' 
             type="text" 
             laceholder='Math...' 
-            value={courseInputText} 
+            value={courseInputText}  
             onChange={(e) => setCourseInputText(e.target.value)}
             name="" 
             id="" />

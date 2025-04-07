@@ -16,23 +16,33 @@ function TodoBox( {todos, setTodos, selectedCourse} ) {
   }, [todos])
 
   return (
-    <div className="text-white h-150 bg-gray-700 flex flex-col w-full max-w-md mx-auto shadow-md rounded-lg px-4 py-0 my-0">
-      <h2 className='h-10 bg-gray-700 m-2 text-3xl'>Coming Up</h2>
-      <div className='w-full h-full flex flex-col justify-between bg-gray-700'>
-        <div className='w-full flex-col flex'>
-          <TodosList padding={2} setTodos={setTodos} uncompleted_todos={uncompleted_todos} todos={todos}/>
+    <div className='relative'>
+      <div className='absolute -top-14 -left-4 rounded-t-2xl bg-gray-800 w-120 h-12 flex justify-center items-center'>
+        <div className='text-4xl text-white font-mono bg-gray-500 w-105 rounded-2xl flex justify-center rounded-b-none'>
+          University To/Do
         </div>
-        <div>
-          {showRecents ? 
-          <div className='w-full bg-gray-700 rounded-2xl h-45 my-2 p-2 border-8 border-gray-800 flex-col' >
-            <div className='flex justify-between'>
-              <h1>Recently Deleted</h1>
-              <button className='px-2 rounded-lg bg-gray-600 hover:bg-gray-500 hover:cursor-pointer' onClick={() => {setShowRecents((prev) => !prev)}}>Hide Recents</button>
-            </div>
-            <RecentList completed_todos={completed_todos} setTodos={setTodos} todos={todos}/>
-          </div> : 
-            <button className='my-4 p-1 px-2 rounded-lg bg-gray-600 hover:bg-gray-500 hover:cursor-pointer' onClick={() => {setShowRecents((prev) => !prev)}}>Show Recents</button>
-            }
+      </div>
+
+      <div className="text-white h-150 bg-gray-700 flex flex-col w-150 mx-auto shadow-md rounded-lg px-4 py-0 my-0">
+        <h2 className='h-10 bg-gray-700 m-2 text-3xl'>Coming Up</h2>
+        <div className='relative w-full h-full flex flex-col justify-between bg-gray-700'>
+          <div className='relative w-full flex-col flex overflow-y-scroll h-120 pb-12 scrollbar scrollbar-thumb-gray-400 scrollbar-track-gray-100'>
+            <TodosList padding={2} setTodos={setTodos} uncompleted_todos={uncompleted_todos} todos={todos}/>
+          </div>
+          {!showRecents ? <div className="pointer-events-none absolute bottom-16 left-0 right-0 h-12 bg-gradient-to-t from-gray-700 to-transparent rounded-b"></div> : ''}
+          
+          <div>
+            {showRecents ? 
+            <div className='w-full bg-gray-700 h-40  p-2 border-8 border-gray-800 flex-col overflow-y-scroll scrollbar scrollbar-thumb-gray-400 scrollbar-track-gray-100' >
+              <div className='flex justify-between'>
+                <h1>Recently Completed</h1>
+                <button className='px-2 rounded-lg bg-gray-600 hover:bg-gray-500 hover:cursor-pointer' onClick={() => {setShowRecents((prev) => !prev)}}>Hide Recents</button>
+              </div>
+              <RecentList completed_todos={completed_todos} setTodos={setTodos} todos={todos}/>
+            </div> : 
+              <button className='my-4 p-1 px-2 rounded-lg bg-gray-600 hover:bg-gray-500 hover:cursor-pointer' onClick={() => {setShowRecents((prev) => !prev)}}>Show Recents</button>
+              }
+          </div>
         </div>
       </div>
     </div>

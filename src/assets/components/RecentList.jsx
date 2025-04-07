@@ -7,7 +7,7 @@ function RecentList( {todos, completed_todos, setTodos} ) {
     <>
     {
       completed_todos.map((item, index) => (
-        <RecentItem todo={item} todos={todos} setTodos={setTodos} completed_todos={completed_todos} key={index} />
+        <RecentItem todo={item} todos={todos} setTodos={setTodos} completed_todos={completed_todos} key={item.id} />
       ))
     }
   </>

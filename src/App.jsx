@@ -72,10 +72,15 @@ function App() {
     }
   }
 
+  
+
 
   return (
-    <div className='flex justify-center'>
-      <div className="inline-flex w-full items-center max-w-7xl shadow-md rounded-lg px-4 py-2 my-30 bg-gray-800 text-orange-500">
+    
+    <div className='flex justify-center relative'>
+      {
+      <div className="inline-flex max-w-auto items-center shadow-md rounded-lg rounded-tl-none px-4 py-2 my-30 bg-gray-800 text-orange-500" style={{ width: "calc(100% - 40px)", marginLeft: "20px", marginRight: "20px" }}>
+
         <TodoBox todos={todos} setTodos={setTodos}/>
         <CourseBox 
         selectedCourse={selectedCourse} 
@@ -95,6 +100,10 @@ function App() {
         />
         <Weather/>
       </div>
+        }
+    
+
+
     </div>
   )
 }

@@ -128,7 +128,7 @@ function Weather() {
 
 
   return (
-    <div className="text-white h-150 bg-gray-700 flex flex-col justify-between w-full mx-2 shadow-md rounded-lg px-4 py-0 my-0">
+    <div className="text-white h-150 bg-gray-700 flex flex-col justify-between w-200 mx-2 shadow-md rounded-lg px-4 py-0 my-0">
       <div>
         <div className='my-4 text-2xl mx-2'>
           Weather
