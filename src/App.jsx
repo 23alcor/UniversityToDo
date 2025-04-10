@@ -3,6 +3,7 @@ import './App.css'
 import TodoBox from './assets/components/TodoBox'
 import CourseBox from './assets/components/CourseBox'
 import Weather from './assets/components/Weather/Weather'
+import { motion } from "motion/react"
 
 function App() {
 
@@ -77,7 +78,9 @@ function App() {
 
   return (
     
-    <div className='flex justify-center relative'>
+    <motion.div 
+    
+    className='flex justify-center relative'>
       {
       <div className="inline-flex max-w-auto items-center shadow-md rounded-lg rounded-tl-none px-4 py-2 my-30 bg-gray-800 text-orange-500" style={{ width: "calc(100% - 40px)", marginLeft: "20px", marginRight: "20px" }}>
 
@@ -104,7 +107,7 @@ function App() {
     
 
 
-    </div>
+    </motion.div>
   )
 }
 

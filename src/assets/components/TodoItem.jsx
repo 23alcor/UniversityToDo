@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 
-function TodoItem( {todo, index, padding, todos, setTodos , uncompleted_todos} ) {
+function TodoItem( {todo, index, padding, todos, setTodos , uncompleted_todos, completed_todos} ) {
 
   const [checked, setChecked] = useState(false)
   const [optionsVisibility, setOptionsVisibility] = useState(false)
@@ -11,11 +11,23 @@ function TodoItem( {todo, index, padding, todos, setTodos , uncompleted_todos} )
  
   const clicked = () => {
     setChecked(checked => !checked)
+
     setTodos((prevTodos) => 
       prevTodos.map((t) =>
         t.id === todo.id ? {...t, completed: !t.completed } : t
       )
     )
+
+    setTodos(prevTodos => {
+      const completedItems = prevTodos.filter(t => t.completed);
+      if (completedItems.length > 10) {
+        // Find the oldest completed todo (first one in the array)
+        const oldestCompleted = completedItems[0];
+        return prevTodos.filter(t => t.id !== oldestCompleted.id);
+      }
+      return prevTodos;
+    });
+
   }
   
   const optionsClicked = () => {

@@ -3,6 +3,10 @@ import TodoItem from './TodoItem'
 import RecentItem from './RecentItem'
 
 function RecentList( {todos, completed_todos, setTodos} ) {
+
+  console.log(completed_todos)
+
+
   return (
     <>
     {

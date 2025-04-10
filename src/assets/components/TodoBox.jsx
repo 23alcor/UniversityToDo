@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import TodosList from './TodosList'
 import RecentList from './RecentList'
+import { AnimatePresence, motion } from "motion/react"
 
 function TodoBox( {todos, setTodos, selectedCourse} ) {
 
   const [showRecents, setShowRecents] = useState(false)
   
-
   const [uncompleted_todos, setUncompleted_Todos] = useState([])
   const [completed_todos, setCompleted_Todos] = useState([])
 
@@ -25,23 +25,42 @@ function TodoBox( {todos, setTodos, selectedCourse} ) {
 
       <div className="text-white h-150 bg-gray-700 flex flex-col w-150 mx-auto shadow-md rounded-lg px-4 py-0 my-0">
         <h2 className='h-10 bg-gray-700 m-2 text-3xl'>Coming Up</h2>
-        <div className='relative w-full h-full flex flex-col justify-between bg-gray-700'>
+        <div className='relative w-full h-full flex flex-col justify-between '>
           <div className='relative w-full flex-col flex overflow-y-scroll h-120 pb-12 scrollbar scrollbar-thumb-gray-400 scrollbar-track-gray-100'>
-            <TodosList padding={2} setTodos={setTodos} uncompleted_todos={uncompleted_todos} todos={todos}/>
+            <TodosList padding={2} setTodos={setTodos} completed_todos={completed_todos} uncompleted_todos={uncompleted_todos} todos={todos}/>
           </div>
           {!showRecents ? <div className="pointer-events-none absolute bottom-16 left-0 right-0 h-12 bg-gradient-to-t from-gray-700 to-transparent rounded-b"></div> : ''}
           
-          <div>
+          <div className='h-20'>
+          <AnimatePresence>
             {showRecents ? 
-            <div className='w-full bg-gray-700 h-40  p-2 border-8 border-gray-800 flex-col overflow-y-scroll scrollbar scrollbar-thumb-gray-400 scrollbar-track-gray-100' >
+            <motion.div initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1, transition: { delay: 0.4 } }}
+            exit={{ opacity: 0, scale: 1, transition: { delay: 0} }}
+            key="box"
+            
+             className='w-full h-40  p-2 -top-50 border-8 bg-gray-700 border-gray-800 rounded-2xl flex-col overflow-y-scroll scrollbar scrollbar-thumb-gray-400 scrollbar-track-gray-100' >
               <div className='flex justify-between'>
                 <h1>Recently Completed</h1>
-                <button className='px-2 rounded-lg bg-gray-600 hover:bg-gray-500 hover:cursor-pointer' onClick={() => {setShowRecents((prev) => !prev)}}>Hide Recents</button>
+                <motion.button 
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                
+                className='px-2 rounded-lg bg-gray-600 hover:bg-gray-500 hover:cursor-pointer' onClick={() => {setShowRecents((prev) => !prev)}}>Hide Recents</motion.button>
               </div>
               <RecentList completed_todos={completed_todos} setTodos={setTodos} todos={todos}/>
-            </div> : 
-              <button className='my-4 p-1 px-2 rounded-lg bg-gray-600 hover:bg-gray-500 hover:cursor-pointer' onClick={() => {setShowRecents((prev) => !prev)}}>Show Recents</button>
+            </motion.div> : 
+              <motion.button 
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1, transition: { delay: 0.4 } }}
+              exit={{ opacity: 0, scale: 1, transition: { delay: 0} }}
+              key="showResults"
+              
+              className='my-4 p-1 px-2 rounded-lg bg-gray-600 hover:bg-gray-500 hover:cursor-pointer' onClick={() => {setShowRecents((prev) => !prev)}}>Show Recents</motion.button>
               }
+          </AnimatePresence>
           </div>
         </div>
       </div>
