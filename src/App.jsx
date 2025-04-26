@@ -82,7 +82,7 @@ function App() {
     
     className='flex justify-center relative'>
       {
-      <div className="inline-flex max-w-auto items-center shadow-md rounded-lg rounded-tl-none px-4 py-2 my-30 bg-gray-800 text-orange-500" style={{ width: "calc(100% - 40px)", marginLeft: "20px", marginRight: "20px" }}>
+      <div className="inline-flex max-w-auto items-center rounded-lg rounded-tl-none px-4 py-2 my-30 bg-gray-800 text-orange-500 drop-shadow-2xl shadow-black" style={{ width: "calc(100% - 40px)", marginLeft: "20px", marginRight: "20px" }}>
 
         <TodoBox todos={todos} setTodos={setTodos}/>
         <CourseBox 
