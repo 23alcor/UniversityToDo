@@ -6,7 +6,10 @@ import Onboarding from './Onboarding.jsx'
 import { useState } from 'react'
 
 function Root() {
-  const [seenOnboarding, setSeenOnboarding] = useState(false)
+  const [seenOnboarding, setSeenOnboarding] = useState(() => {
+    const state = JSON.parse(localStorage.getItem('ONBOARDING'))
+    return state || false
+  })
 
   useEffect(() =>{
     const seen = localStorage.getItem('onboarding')
