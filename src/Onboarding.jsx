@@ -127,7 +127,7 @@ function Onboarding( {setSeenOnboarding} ) {
 
   const courseItem = (name, id) => {
     return  (
-      <div className='inline-flex justify-between pt-1'>
+      <div className='inline-flex justify-between pt-1 w-auto'>
         <div>
           {name}
         </div>
@@ -139,7 +139,7 @@ function Onboarding( {setSeenOnboarding} ) {
   }
 
   return (
-    <div className='h-200 ml-60 mr-60 pt-10'>
+    <div className='h-200 m-auto pt-10 min-w-300 max-w-350'>
       <div className=' h-full w-full inline-flex items-center justify-center rounded-2xl'>
         <div className='w-1/2 h-full rounded-2xl shadow-2xl shadow-blue-950 bg-gray-700 flex flex-col'>
           <div className='flex-1/34 bg-gray-600 rounded-2xl inline-flex items-center p-2'>
@@ -210,14 +210,14 @@ function Onboarding( {setSeenOnboarding} ) {
                 {stage==5? 
                 <div className='flex-col w-2xl'>
                   <p>Please Add Your Courses!:</p>
-                  <div className=' inline-grid w-full pl-5'>
+                  <div className=' inline-grid min-w-140 max-w-290 pl-5'>
                   {Object.values(courses).map((item, index) => (
                     courseItem(item[0], item[1])
                   ))}
                   </div>
                   <div className='pt-5'>
                     Add A Course
-                    <div className='inline-flex justify-between w-full'>
+                    <div className='inline-flex justify-between w-auto'>
                       <input className='bg-gray-400/40' value={courseInput} type="text" onChange={handleCourseChange} />
                       <button onClick={() => {addCourse(courseInput)}} className='hover:bg-gray-400 hover:cursor-pointer'>Add Course</button>
                     </div>

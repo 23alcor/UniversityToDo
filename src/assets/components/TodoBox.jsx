@@ -20,7 +20,7 @@ function TodoBox( {todos, setTodos, selectedCourse} ) {
 
   return (
     <div className='relative'>
-      <div className='absolute -top-14 -left-4 rounded-t-2xl bg-gray-800 w-120 h-12 flex justify-center items-center'>
+      <div className='absolute -top-24 -left-4 rounded-t-2xl bg-gray-800 w-120 h-22 flex justify-center items-center'>
         <div className='text-4xl text-white font-mono bg-gray-500 w-105 rounded-2xl flex justify-center rounded-b-none'>
           University To/Do
         </div>
@@ -28,11 +28,6 @@ function TodoBox( {todos, setTodos, selectedCourse} ) {
       <div className='absolute -top-14 left-150 rounded-t-2xl bg-gray-800 w-120 h-12 flex justify-center items-center'>
         <div className='text-4xl text-white font-mono bg-gray-500 w-105 rounded-2xl flex justify-center rounded-b-none'>
           Welcome {firstName}
-        </div>
-      </div>
-      <div className='absolute -top-14 left-365 rounded-t-2xl bg-gray-800 w-80 h-12 flex justify-center items-center'>
-        <div className='text-1xl text-white font-mono bg-gray-500 w-70 rounded-2xl flex justify-center rounded-b-none'>
-          Welcome {schoolName}
         </div>
       </div>
 
